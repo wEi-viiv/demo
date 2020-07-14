@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="homework2">
+        <h3>作业2</h3>
+        <input type="text">
+        <button class="btn">搜索</button>
+    </div>
+    <div class="homework3">
+        <h3>作业3</h3>
+        <input class="miles" type="text">
+        <button class="count">计算费用</button>
+        <span>是否拥堵:</span> <input class="jam" type="checkbox">
+
+        <div class="box">打车费用为:<span></span></div>
+    </div>
+
+
+    <script>
+        // 作业2
+        var data = [{
+            id: 1,
+            name: '家电',
+            goods: [{
+                id: 11,
+                gname: '冰箱',
+                goods: [{
+                    id: 111,
+                    gname: '海尔'
+                }, {
+                    id: 112,
+                    gname: '美的'
+                }]
+            }, {
+                id: 12,
+                gname: '洗衣机'
+            }]
+        }, {
+            id: 2,
+            name: '服饰'
+        }];
+
+        function findId(target, id) {
+            var reg = new RegExp('^' + id)
+            for (let i = 0; i < target.length; i++) {
+                console.log(i)
+                if (reg.test(target[i].id)) {
+                    var obj = target[i]
+                    console.log(obj)
+
+                } else if (target[i].goods) {
+                    findId(target[i].goods, id)
+                }
+
+            }
+
+        }
+
+
+        document.querySelector('.btn').onclick = function() {
+            var text = document.querySelector('.homework2 input').value
+            findId(data, text)
+        }
+
+
+        //  作业3
+        function calculate(miles1) {
+            miles = parseInt(miles1)
+            var startPrice = 7
+            var totalPrice = 0
+            if (miles <= 3) {
+                totalPrice = 7
+            } else {
+                totalPrice = startPrice + (miles - 3) * 5
+            }
+            document.querySelector('.box span').innerText = totalPrice + '元'
+
+            function jam() {
+                totalPrice = totalPrice + 5
+                document.querySelector('.box span').innerText = totalPrice + '元'
+
+            }
+            return jam
+        }
+
+        document.querySelector('.count').onclick = function() {
+            var mile = document.querySelector('.miles').value
+            var jam = document.querySelector('.jam').checked
+            var block = calculate(mile)
+            if (jam) {
+                block()
+            }
+
+        }
+        "use strict"
+        x = 10
+            // console.log(x)
+
+
+
+        // function fun() {
+        //     // 'use strict';
+        //     y = 10
+        //     console.log(y)
+        // }
+        // fun()
+    </script>
+</body>
+
+</html>
